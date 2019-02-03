@@ -11,6 +11,17 @@ namespace AdoNetConnection
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.InputEncoding= System.Text.Encoding.Unicode;
+            string firstName=string.Empty;
+            string lastName = string.Empty;
+
+            Console.WriteLine("Реєстрація автора");
+            Console.Write("Введіть ім'я автора=>>");
+            firstName=Console.ReadLine();
+            Console.Write("Введіть прізвище автора=>>");
+            lastName = Console.ReadLine();
+
             //Клас самого підлючення
             SqlConnection connection = new SqlConnection();
             //Рядок підключення до БД
@@ -19,11 +30,11 @@ namespace AdoNetConnection
             //Відкриття підлкючення дл БД
             connection.Open();
             //Рядок запиту
-            string insertString = @"INSERT INTO dbo.tbl_Authors VALUES ('Georgiy','Kesha')";
+            string insertString = $@"INSERT INTO dbo.tbl_Authors VALUES ('{firstName}','{lastName}')";
             //Із рядка комнади зроибли саму команду
             SqlCommand command = new SqlCommand(insertString, connection);
             //Виконать команду
-            command.ExecuteNonQuery();
+            Console.WriteLine($"Успішно додано {command.ExecuteNonQuery()} авторів");
             //Закриття підключення до БД
             connection.Close();
         }
